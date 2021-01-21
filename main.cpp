@@ -25,7 +25,7 @@ void swapRegister(int first, int second)
 int main()
 {
     // _setmode(_fileno(stdout), _O_U16TEXT);
-    char *a = setlocale(LC_ALL, "vietnamese");
+    // char *a = setlocale(LC_ALL, "vietnamese");
 
     Student Stu[100];
     Person Per[100];
@@ -42,58 +42,66 @@ int main()
 
     {
         //*******************  STUDENT  *******************
-        file.open(FILE_STUDENT, ios::in | ios::binary);
-        file.read((char *)&number_student, sizeof(number_student));
+        fstream fileStu;
+        cout << "open file Stu" << endl;
+        fileStu.open(FILE_STUDENT, ios::in);
+        fileStu.read((char *)&number_student, sizeof(number_student));
         for (int i = 0; i < number_student; i++)
         {
-            file.read((char *)&Stu[i], sizeof(Stu));
+            fileStu.read((char *)&Stu[i], sizeof(Stu));
         }
-        file.close();
+        fileStu.close();
         //*******************  PERSON  *******************
-        file.open(FILE_PERSON, ios::out | ios::binary);
-        file.read((char *)&number_student, sizeof(number_student));
+        fstream filePer;
+        cout << "open file Per" << endl;
+        filePer.open(FILE_PERSON, ios::out);
+        // file.read((char *)&number_student, sizeof(number_student));
         for (int i = 0; i < number_student; i++)
         {
-            file.read((char *)&Per[i], sizeof(Per));
+            filePer.read((char *)&Per[i], sizeof(Per));
         }
-        file.close();
+        filePer.close();
         //*******************  SUBJECT  *******************
-        file.open(FILE_SUBJECT, ios::out | ios::binary);
-        file.read((char *)&number_subject, sizeof(number_subject));
+        fstream fileSj;
+        cout << "open file Sub" << endl;
+        fileSj.open(FILE_SUBJECT, ios::out);
+        fileSj.read((char *)&number_subject, sizeof(number_subject));
         for (int i = 0; i < number_subject; i++)
         {
-            file.read((char *)&Sub[i], sizeof(Sub));
+            fileSj.read((char *)&Sub[i], sizeof(Sub));
         }
-        file.close();
+        fileSj.close();
         //*******************  REGISTER  *******************
-        file.open(FILE_REGISTER, ios::out | ios::binary);
-        file.read((char *)&number_register, sizeof(number_register));
+        fstream fileReg;
+        cout << "open file Reg" << endl;
+        fileReg.open(FILE_REGISTER, ios::out);
+        fileReg.read((char *)&number_register, sizeof(number_register));
         for (int i = 0; i < number_register; i++)
         {
-            file.read((char *)&Reg[i], sizeof(Reg));
+            fileReg.read((char *)&Reg[i], sizeof(Reg));
         }
-        file.close();
+        fileReg.close();
     }
     //------------------END DOC FILE------------------------
 
     {
-        system("cls");
+        system("cls"); // system("clear") đối với máy mac, linux, ubuntu,..
         //------------------CHUC NANG CHINH---------------------
         cout << "\t\t\t\t\tPhan mem quan ly sinh vien\n";
         cout << "\t\t\t\t\t\tHoang Nam\n\n";
         cout << "---------------------------------------------------\n";
 
-        wcout << L"1. Nhập thêm mới sinh viên." << endl;
-        cout << "2. Sửa thông tin sinh viên (theo mã)." << endl;
-        cout << "3. Xóa sinh viên." << endl;
-        cout << "4. Tìm sinh viên theo tên gần đúng." << endl;
-        cout << "5. Thêm mới môn học." << endl;
-        cout << "6. Đăng ký môn học." << endl;
-        cout << "7. Hiển thị danh sách sinh viên." << endl;
-        cout << "8. Hiển thị danh sách môn học." << endl;
-        cout << "9. Hiển thị bản đăng ký." << endl;
-        cout << "10. Sắp xếp  bản đăng ký." << endl;
-        cout << "0. Thoát khỏi hệ thống." << endl;
+        cout << "1. Them moi sinh vien." << endl;
+        cout << "2. Sua thong tin sinh vien (theo ma)." << endl;
+        cout << "3. Xoa sinh vien." << endl;
+        cout << "4. Tim sinh vien theo ten gan dung." << endl;
+        cout << "5. Them moi mon hoc." << endl;
+        cout << "6. Dang ky mon hoc." << endl;
+        cout << "7. Hien thi danh sach sinh vien." << endl;
+        cout << "8. Hien thi danh sach mon hoc." << endl;
+        cout << "9. Hien thi ban dang ky." << endl;
+        cout << "10. Sap xep ban dang ky." << endl;
+        cout << "0. Thoat khoi he thong." << endl;
 
         cout << "---------------------------------------------------\n";
 
@@ -109,19 +117,20 @@ int main()
                 // 1.Nhap them mot sinh vien
 
                 int package;
-                cout << "Nhập số chứng minh/Căn cước/Hộ chiếu: " << endl;
+                float package_f;
+                cout << "Nhap so Chung minh/Can cuoc/Ho chieu: " << endl;
                 cin >> package;
                 Per[number_student].setId(package);
                 Per[number_student].readName();
                 Per[number_student].readDate();
                 Per[number_student].readEmail();
 
-                cout << "Nhập mã sinh viên: " << endl;
+                cout << "Nhap ma sinh vien: " << endl;
                 cin >> package;
                 Stu[number_student].setId(package);
-                cout << "Nhap điểm trung bình: " << endl;
-                cin >> package;
-                Stu[number_student].setRba(package);
+                cout << "Nhap diem trung binh: " << endl;
+                cin >> package_f;
+                Stu[number_student].setRba(package_f);
                 Stu[number_student].readMajor();
                 number_student++;
                 break;
@@ -139,9 +148,9 @@ int main()
                 {
                     first++;
                     if (first > 1)
-                        cout << "Nhập lại mã sinh viên cần sửa: ";
+                        cout << "Nhap lai ma sinh vien can sua: ";
                     else
-                        cout << "Nhập mã sinh viên cần sửa: ";
+                        cout << "Nhap ma sinh vien can sua: ";
                     cin >> package;
                     for (int i = 0; i < number_student; i++)
                     {
@@ -152,71 +161,71 @@ int main()
                         }
                     }
                 } while (check == false);
-                cout << "Sửa thông tin sinh viên: " << endl;
+                cout << "Sua thong tin sinh vien: " << endl;
                 int chuc_nang_sua;
                 check = false;
                 first = 0;
-                cout << "1. Sửa mã sv." << endl;
-                cout << "2. Sửa tên." << endl;
-                cout << "3. Sửa ngày tháng năm sinh." << endl;
-                cout << "4. Sửa email." << endl;
-                cout << "5. Sửa số chứng minh/Căn cước/Hộ chiếu." << endl;
-                cout << "6. Sửa điểm trung bình." << endl;
-                cout << "7. Sửa chuyên ngành." << endl;
+                cout << "1. Sua ma sinh vien." << endl;
+                cout << "2. Sua ten." << endl;
+                cout << "3. Sua ngay thang nam sinh." << endl;
+                cout << "4. Sua email." << endl;
+                cout << "5. Sua so Chung minh/Can cuoc/Ho chieu." << endl;
+                cout << "6. Sua diem trung binh." << endl;
+                cout << "7. Sua chuyen nganh" << endl;
                 do
                 {
                     first++;
                     if (first > 1)
-                        cout << "Mời nhập lại: " << endl;
+                        cout << "Moi nhap lai: " << endl;
                     cin >> chuc_nang_sua;
                     if ((chuc_nang_sua < 7) && (chuc_nang_sua > 1))
                         check = true;
                 } while (check == false);
-                package;
+                package = 0;
                 switch (chuc_nang_sua)
                 {
                 case 1:
                 {
-                    cout << "Nhập lại mã sinh viên: " << endl;
+                    cout << "Nhap lai ma sinh vien: " << endl;
                     cin >> package;
                     Stu[position].setId(package);
                     break;
                 }
                 case 2:
                 {
-                    cout << "Nhập lại tên sinh viên: " << endl;
+                    cout << "Nhap lai ten sinh vien: " << endl;
                     Per[position].readName();
                     break;
                 }
                 case 3:
                 {
-                    cout << "Nhập lại ngày tháng năm sinh: " << endl;
+                    cout << "Nhap lai ngay thang nam sinh: " << endl;
                     Per[position].readDate();
                     break;
                 }
                 case 4:
                 {
-                    cout << "Nhập lại email: " << endl;
+                    cout << "Nhap lai email: " << endl;
                     Per[position].readEmail();
                     break;
                 }
                 case 5:
                 {
-                    cout << "Nhập lại số chứng minh/Căn cước/Hộ chiếu: " << endl;
+                    cout << "Nhap lai so Chung minh/Can cuoc/Ho chieu: " << endl;
                     cin >> package;
                     Per[position].setId(package);
                     break;
                 }
                 case 6:
                 {
-                    cout << "Nhập lại điểm trung bình: " << endl;
+                    cout << "Nhap lai diem trung binh: " << endl;
                     cin >> package;
                     Stu[position].setRba(package);
                     break;
                 }
                 default:
                 {
-                    cout << "7Nhập lại chuyên ngành." << endl;
+                    cout << "Nhap lai chuyen nganh." << endl;
                     Stu[position].readMajor();
                     break;
                 }
@@ -235,9 +244,9 @@ int main()
                 {
                     first++;
                     if (first > 1)
-                        cout << "Nhập lại mã sinh viên cần xóa: ";
+                        cout << "Nhap lai ma sinh vien can xoa: ";
                     else
-                        cout << "Nhập mã sinh viên cần xóa: ";
+                        cout << "Nhap ma sinh vien can xoa: ";
                     cin >> package;
                     for (int i = 0; i < number_student; i++)
                     {
@@ -265,17 +274,17 @@ int main()
                 //4. Tìm sinh viên theo tên gần đúng.
 
                 char find[100];
-                cout << "Nhập tên cần tìm : " << endl;
+                cout << "Nhap ten can tim: " << endl;
                 cin.getline(find, 100);
                 for (int i = 0; i < number_student; i++)
                 {
                     if (Per[i].findName(find) == true)
                     {
                         cout << "-------------------------------";
-                        cout << "Họ tên: ";
+                        cout << "Ho ten: ";
                         Per[i].coutName();
                         cout << endl;
-                        cout << "Mã sinh viên: "
+                        cout << "Ma sinh vien: "
                              << Stu[i].getId() << endl;
                         cout << "-------------------------------";
                     }
@@ -286,14 +295,15 @@ int main()
                 //5. Thêm mới môn học.
 
                 int package;
-                cout << "Nhập id môn học: " << endl;
+                cout << "Nhap id mon hoc: " << endl;
                 cin >> package;
                 Sub[number_subject].setId(package);
                 Sub[number_subject].readName();
-                cout << "Nhập hệ số tín chỉ: " << endl;
+                cout << "Nhap he so tin chi: " << endl;
                 cin >> package;
                 Sub[number_subject].setCredit(package);
-                cout << "Nhập số tiết học của môn: " << endl;
+                cout << "Nhap so tiet cua mon hoc: " << endl;
+                cin >> package;
                 Sub[number_subject].setLesson(package);
                 number_subject++;
                 break;
@@ -303,11 +313,11 @@ int main()
                 //6. Đăng ký môn học.
 
                 int package;
-                cout << "Đăng ký môn học: " << endl;
-                cout << "Nhập mã sinh viên đăng ký: " << endl;
+                cout << "Dang ky mon hoc: " << endl;
+                cout << "Nhap ma sinh vien dang ky: " << endl;
                 cin >> package;
                 Reg[number_register].setIdStudent(package);
-                cout << "Nhập mã môn đăng ký: " << endl;
+                cout << "Nhap ma mon dang ky: " << endl;
                 cin >> package;
                 Reg[number_register].setIdSubject(package);
                 Reg[number_register].activeTime();
@@ -319,24 +329,25 @@ int main()
                 //7. Hiển thị danh sách sinh viên.
 
                 cout << "*********************************" << endl;
-                cout << "Danh sách sinh viên: " << endl
+                cout << "Danh sach sinh vien: " << endl
                      << endl;
                 for (int i = 0; i < number_student; i++)
                 {
-                    cout << "Sinh viên " << Stu[i].getId() << ": " << endl;
-                    cout << "Họ tên: ";
-                    Per[i].readName();
+                    cout << "Sinh vien " << Stu[i].getId() << ": " << endl;
+                    cout << "Ho ten: ";
+                    Per[i].coutName();
                     cout << endl;
-                    cout << "Ngày sinh: " << Per[i].getDate().day << "/"
+                    cout << "Ngay sinh: " << Per[i].getDate().day << "/"
                          << Per[i].getDate().month << "/"
                          << Per[i].getDate().year << endl;
-                    cout << "Điểm trung bình: " << Stu[i].getRba() << endl;
-                    cout << "Chuyên ngành: ";
+                    cout << "Diem trung binh: " << Stu[i].getRba() << endl;
+                    cout << "Chuyen nganh: ";
                     Stu[i].coutMajor();
                     cout << endl;
+                    cout << "Email: ";
                     Per[i].coutEmail();
                     cout << endl;
-                    cout << "Số chứng minh/Căn cước/Hộ chiếu: ";
+                    cout << "So chung minh/Can cuoc/Ho chieu: ";
                     cout << Per[i].getId() << endl;
                     cout << "--------------------------" << endl
                          << endl;
@@ -348,16 +359,16 @@ int main()
                 // 8. Hiển thị danh sách môn học.
 
                 cout << "*********************************" << endl;
-                cout << "Danh sách môn học: " << endl
+                cout << "Danh sach mon hoc: " << endl
                      << endl;
                 for (int i = 0; i < number_subject; i++)
                 {
-                    cout << "Mã môn học: " << Sub[i].getId() << endl;
-                    cout << "Tên lớp: ";
+                    cout << "Ma mon hoc: " << Sub[i].getId() << endl;
+                    cout << "Ten lop: ";
                     Sub[i].coutName();
                     cout << endl;
-                    cout << "Hệ số tín chỉ: " << Sub[i].getCredit() << endl;
-                    cout << "Số tiết: " << Sub[i].getLesson() << endl;
+                    cout << "He so tin chi: " << Sub[i].getCredit() << endl;
+                    cout << "So tiet: " << Sub[i].getLesson() << endl;
                     cout << "--------------------------" << endl
                          << endl;
                 };
@@ -368,12 +379,12 @@ int main()
                 // 9. Hiển thị bản đăng ký.
 
                 cout << "*********************************" << endl;
-                cout << "Danh sách bản đăng ký: " << endl
+                cout << "Danh sach ban dang ky: " << endl
                      << endl;
                 for (int i = 0; i < number_subject; i++)
                 {
-                    cout << "Mã sinh viên: " << Reg[i].getIdStudent() << endl;
-                    cout << "Mã lớp: " << Reg[i].getIdSubject() << endl;
+                    cout << "Ma sinh vien: " << Reg[i].getIdStudent() << endl;
+                    cout << "Ma lop: " << Reg[i].getIdSubject() << endl;
                     cout << "--------------------------" << endl
                          << endl;
                 };
@@ -384,16 +395,16 @@ int main()
                 // 10. Sắp xếp bản đăng ký.
 
                 int package = 0;
-                cout << "Sắp xếp bảng đăng ký theo thời gian: " << endl;
-                cout << "1. Cũ -> mới" << endl;
-                cout << "2. Mới -> cũ" << endl;
+                cout << "Sap xep ban dang ky theo thoi gian: " << endl;
+                cout << "1. Cu -> moi" << endl;
+                cout << "2. Moi -> cu" << endl;
                 int first = 0;
                 bool check = false;
                 do
                 {
                     first++;
                     if (first > 1)
-                        cout << "Nhập lại: " << endl;
+                        cout << "Nhap lai: " << endl;
                     cin >> package;
                     if ((package == 1) || (package == 2))
                         check = true;
@@ -453,7 +464,7 @@ int main()
                         }
                     }
                 }
-                cout << "Sắp xếp hoàn thành! " << endl;
+                cout << "Sap xep hoan thanh! " << endl;
                 break;
             };
             case 0:
@@ -462,47 +473,56 @@ int main()
                 //------------------LUU FILE----------------------------
 
                 //*******************  STUDENT  *******************
-                file.open(FILE_STUDENT, ios::out | ios::binary);
-                file.write((char *)&number_student, sizeof(number_student));
+                fstream fileStu;
+                cout << "close file Stu" << endl;
+                fileStu.open(FILE_STUDENT, ios::out);
+                fileStu.write((char *)&number_student, sizeof(number_student));
                 for (int i = 0; i < number_student; i++)
                 {
-                    file.write((char *)&Stu[i], sizeof(Stu));
+                    fileStu.write((char *)&Stu[i], sizeof(Stu));
                 }
-                file.close();
+                fileStu.close();
                 //*******************  PERSON  *******************
-                file.open(FILE_PERSON, ios::out | ios::binary);
-                file.write((char *)&number_student, sizeof(number_student));
+                fstream filePer;
+                cout << "close file Per" << endl;
+                filePer.open(FILE_PERSON, ios::out);
+                // file.write((char *)&number_student, sizeof(number_student));
                 for (int i = 0; i < number_student; i++)
                 {
-                    file.write((char *)&Per[i], sizeof(Per));
+                    filePer.write((char *)&Per[i], sizeof(Per));
                 }
-                file.close();
+                filePer.close();
                 //*******************  SUBJECT  *******************
-                file.open(FILE_SUBJECT, ios::out | ios::binary);
-                file.write((char *)&number_subject, sizeof(number_subject));
+                fstream fileSj;
+                cout << "close file Sub" << endl;
+                fileSj.open(FILE_SUBJECT, ios::out);
+                fileSj.write((char *)&number_subject, sizeof(number_subject));
                 for (int i = 0; i < number_subject; i++)
                 {
-                    file.write((char *)&Sub[i], sizeof(Sub));
+                    fileSj.write((char *)&Sub[i], sizeof(Sub));
                 }
-                file.close();
+                fileSj.close();
                 //*******************  REGISTER  *******************
-                file.open(FILE_REGISTER, ios::out | ios::binary);
-                file.write((char *)&number_register, sizeof(number_register));
+                fstream fileReg;
+                cout << "close file Reg" << endl;
+                fileReg.open(FILE_REGISTER, ios::out);
+                fileReg.write((char *)&number_register, sizeof(number_register));
                 for (int i = 0; i < number_register; i++)
                 {
-                    file.write((char *)&Reg[i], sizeof(Reg));
+                    fileReg.write((char *)&Reg[i], sizeof(Reg));
                 }
-                file.close();
+                fileReg.close();
 
                 //------------------END LUU FILE------------------------
 
                 cout << endl;
                 cout << "================================" << endl;
                 system("cls");
+                break;
             };
             default:
             {
-                cout << "Xin mời nhập lại: " << endl;
+                cout << "Xin moi nhap lai " << endl;
                 cin >> chuc_nang;
                 break;
             };

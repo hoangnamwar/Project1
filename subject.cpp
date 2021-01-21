@@ -14,7 +14,6 @@ int Subject::getId()
 void Subject::readName()
 {
     cout << "Nhap ten mon hoc: " << endl;
-    cin.ignore();
     cin.getline(name, 100);
 }
 void Subject::coutName()

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "person.h"
 
 using namespace std;
@@ -11,18 +12,28 @@ int Person::getId()
 {
     return id;
 }
+// void Person::readName()
+// {
+//     cout << "Nhap ten nguoi " << id << ": " << endl;
+//     cin.ignore();
+//     cin.getline(name, 100);
+// }
+// void Person::setName(string value)
+// {
+//     for (int i = 0; i < 100; i++)
+//     {
+//         name[i] = value[i];
+//     }
+// }
 void Person::readName()
 {
     cout << "Nhap ten nguoi " << id << ": " << endl;
     cin.ignore();
-    cin.getline(name, 100);
+    getline(cin, name);
 }
 void Person::setName(string value)
 {
-    for (int i = 0; i < 100; i++)
-    {
-        name[i] = value[i];
-    }
+    name = value;
 }
 void Person::coutName()
 {
@@ -41,13 +52,13 @@ void Person::readDate()
     {
         count++;
         if (count > 1)
-            cout << "Nhập lại ngày tháng năm (vd: 1 1 2001): " << endl;
+            cout << "Nhap lai ngay thang nam (vd: 1 1 2001): " << endl;
         else
-            cout << "Nhập lại ngày tháng năm (vd: 1 1 2001): " << endl;
+            cout << "Nhap ngay thang nam (vd: 1 1 2001): " << endl;
         cin >> day >> month >> year;
         if ((year > 2020) || (year < 1900))
         {
-            cout << "Ngày tháng năm không hợp lệ." << endl;
+            cout << "Ngay thang nam khong hop le." << endl;
         }
         else
         {
@@ -68,7 +79,7 @@ void Person::readDate()
                 }
                 else
                 {
-                    cout << "Ngày tháng năm không hợp lệ." << endl;
+                    cout << "Ngay thang nam khong hop le." << endl;
                     break;
                 }
 
@@ -84,7 +95,7 @@ void Person::readDate()
                 }
                 else
                 {
-                    cout << "Ngày tháng năm không hợp lệ." << endl;
+                    cout << "Ngay thang nam khong hop le." << endl;
                     break;
                 }
 
@@ -97,12 +108,12 @@ void Person::readDate()
                 }
                 else
                 {
-                    cout << "Ngày tháng năm không hợp lệ." << endl;
+                    cout << "Ngay thang nam khong hop le." << endl;
                     break;
                 }
 
             default:
-                cout << "Ngày tháng năm không hợp lệ." << endl;
+                cout << "Ngay thang nam khong hop le." << endl;
                 break;
             }
         }
@@ -123,28 +134,42 @@ void Person::setDate(Time value)
 {
     date = value;
 }
+// void Person::readEmail()
+// {
+//     cout << "Nhap email: " << endl;
+//     cin.ignore();
+//     cin.getline(email, 50);
+// }
+// void Person::setEmail(string value)
+// {
+//     for (int i = 0; i < 100; i++)
+//     {
+//         email[i] = value[i];
+//     }
+// }
+// void Person::coutEmail()
+// {
+//     cout << "Nhap email nguoi " << id << ": " << endl;
+//     cin.ignore();
+//     cin.getline(email, 100);
+// }
 void Person::readEmail()
 {
     cout << "Nhap email: " << endl;
     cin.ignore();
-    cin.getline(email, 50);
+    getline(cin, email);
 }
 void Person::setEmail(string value)
 {
-    for (int i = 0; i < 100; i++)
-    {
-        email[i] = value[i];
-    }
+    email = value;
+}
+void Person::coutEmail()
+{
+    cout << email;
 }
 string Person::getEmail()
 {
     return email;
-}
-void Person::coutEmail()
-{
-    cout << "Nhap email nguoi " << id << ": " << endl;
-    cin.ignore();
-    cin.getline(email, 100);
 }
 bool Person::findName(string value)
 {

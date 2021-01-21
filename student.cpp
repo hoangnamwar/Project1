@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "student.h"
 
 using namespace std;
@@ -19,18 +20,28 @@ float Student::getRba()
 {
     return rba;
 }
+// void Student::readMajor()
+// {
+//     cout << "Nhap chuyen nganh: " << endl;
+//     cin.ignore();
+//     cin.getline(major, 100);
+// }
+// void Student::setMajor(string value)
+// {
+//     for (int i = 0; i < 50; i++)
+//     {
+//         major[i] = value[i];
+//     }
+// }
 void Student::readMajor()
 {
     cout << "Nhap chuyen nganh: " << endl;
     cin.ignore();
-    cin.getline(major, 100);
+    getline(cin, major);
 }
 void Student::setMajor(string value)
 {
-    for (int i = 0; i < 50; i++)
-    {
-        major[i] = value[i];
-    }
+    major = value;
 }
 string Student::getMajor()
 {

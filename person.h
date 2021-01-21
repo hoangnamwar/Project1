@@ -17,9 +17,11 @@ class Person
 {
 private:
     int id;
-    char name[100];
     Time date;
-    char email[50];
+    // char name[100];
+    // char email[50];
+    string name;
+    string email;
 
 public:
     void setId(int value);

@@ -2,17 +2,16 @@
 #define STUDENT_H
 
 #include <iostream>
-#include "Person.h"
-
+#include "person.h"
 using namespace std;
 
-//  : public Man
 class Student : public Person
 {
 private:
     int id;
     float rba;
-    char major[50];
+    // char major[50];
+    string major;
 
 public:
     void setId(int value);

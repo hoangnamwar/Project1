@@ -11,6 +11,7 @@ class Subject
 private:
     int id;
     char name[50];
+    // string name;
     int credit;
     int lesson;
 
